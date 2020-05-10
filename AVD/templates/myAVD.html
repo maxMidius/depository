@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel='stylesheet' type='text/css' href="{{url_for('static', filename='css/w3.css') }}" >
+
+</head>
+<body>
+Hello  AVD 
+
+<body>
+<button class='w3-button w3-yellow w3-round' onclick="setColor('Tester')"> Tester </button>
+&nbsp;
+<button class='w3-button w3-yellow w3-round' onclick="setColor('Editor')"> Editor </button>
+&nbsp;&nbsp;&nbsp;
+<button class='w3-button w3-green w3-round' onclick="trigEdgeWalk('seq1')"> Walk1 </button>
+&nbsp;
+<button class='w3-button w3-green w3-round' onclick="trigEdgeWalk('seq2')"> Walk2 </button>
+
+<div id='svg1Div'>  </div>
+<div id='annoteDiv'>
+</div>
+</body>
+
+<script src="{{url_for('static', filename='js/jquery-3.5.1.min.js') }}"> </script>
+<script src="{{url_for('static', filename='js/svg.min.js') }}" > </script>
+<script src="{{url_for('static', filename='js/svgAnim.js') }}" > </script>
+
+<script>
+var svg1=null;
+
+node2SvcMap = {
+  "y.node.0"  :  "Tester",
+  "y.node.1"  :  "Store",
+  "y.node.2"  :  "Editor",
+  "y.node.4"  :  "Gruve",
+  "y.node.5"  :  "RLocal"
+}
+
+svc2NodeMap = {
+   "Tester" : "y.node.0",
+   "Store" :  "y.node.1" ,
+   "Editor" : "y.node.2",
+   "Gruve"  : "y.node.4",
+   "RLocal" : "y.node.5"
+}
+
+edge2ArrowMap = {
+   "y.edge.0" : "Store2Tester",
+   "y.edge.1" : "Editor2Tester",
+   "y.edge.2" : "Gruve2RLocal"
+}
+
+Arrow2EdgeMap = {
+   "Store2Tester": "y.edge.0",
+ "Editor2Tester" : "y.edge.1",
+   "Gruve2RLocal": "y.edge.2" 
+ }
+
+
+edgeWalkSeq = {
+  "seq1" :  [
+     { edge : "Store2Tester", dur: 10,  annote : 'topic1' },
+     { edge : "Editor2Tester", dur: 3,  annote : 'topic2' }
+   ] ,
+
+  "seq2" :  [
+     { edge : "Gruve2RLocal", dur: 12,  annote : 'topic3' },
+     { edge : "Editor2Tester", dur: 3,  annote : 'topic2' }
+   ]
+}
+
+topicData = {
+   "topic1"  : {
+       "audio" :  "someThing1.mp3",
+       "text"  : `
+       Bla Bla Bla
+       `
+   } ,
+   "topic2"  : {
+       "audio" :  "someThing2.mp3",
+       "text"  : `
+       Hey Ha Hu
+       `
+   } ,
+   "topic3"  : {
+       "audio" :  "someThing3.mp3",
+       "text"  : `
+        Why not me
+        If not me who
+       `
+   }
+}
+
+colors=['yellow', 'orange', 'gray', 'pink']
+cntr1=0
+setColor = function(nodeId) {
+   console.log(`setColor: ${nodeId}`)
+   someColor=colors[cntr1 % 4]
+   cntr1++
+   prevColor=svg1.setNodeAttribute(svc2NodeMap[nodeId], "fill", someColor)
+   svg1.unsetNodeAttribute(svc2NodeMap[nodeId], "fill", prevColor, 3 )
+}
+
+
+trigEdgeWalk = function(seqId) {
+   console.log(`trigEdgeWalk: ${seqId}`)
+   svg1.triggerEdgeWalker(edgeWalkSeq[seqId], Arrow2EdgeMap)
+}
+
+
+onSvgClick = function(x1)  {
+    console.log(x1)
+}
+
+window.onload = function ( ) {
+   console.log ("page loaded .." )
+   svg1=new SvgAnim('svg1Div')
+   svg1.fetchSvgAsHtml("/static/images/RuleManager.svg", 700, 500, node2SvcMap, edge2ArrowMap,  onSvgClick )
+}
+
+</script>
+</html>
