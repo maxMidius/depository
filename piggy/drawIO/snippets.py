@@ -1,7 +1,9 @@
+
 import panel as pn
 
 pn.extension()
 
+#------- SNIP 1  (did not work) -----------
 # Create a FileSelector widget
 file_selector = pn.widgets.FileSelector('~')
 
@@ -22,3 +24,38 @@ file_contents = pn.pane.Str(read_file_contents, height=300)
 app = pn.Column(file_selector, file_contents)
 
 app.servable()
+
+#-----  COP SNIP 2   UTF 8 converter ---------
+
+import csv
+
+# Input and output file names
+input_file = 'spotify.csv'
+output_file = 'output.csv'
+
+# Read the original CSV file (assuming it's encoded in utf-8-sig)
+with open(input_file, 'r', newline='', encoding='utf-8-sig') as infile:
+    reader = csv.reader(infile)
+    rows = list(reader)  # Read all rows
+
+# Process the data (you can modify this part as needed)
+# For example, let's add a prefix to each row
+processed_rows = [['Prefix_' + row[0]] + row[1:] for row in rows]
+
+# Write the processed data to a new CSV file with UTF-8 encoding
+with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+    writer = csv.writer(outfile)
+    writer.writerows(processed_rows)
+
+print(f"Converted and saved to {output_file}")
+
+#------------- GEM SNIP2  ---------------------------
+with open('spotify.csv', 'r', encoding='utf-8') as infile, 
+     open('output.csv', 'w', encoding='utf-8') as outfile:
+  # Read all lines from the input file
+  rows = infile.readlines()
+
+  # Write the lines to the output file
+  outfile.writelines(rows)
+
+print("Conversion complete! Check 'output.csv' for UTF-8 encoded data.")
