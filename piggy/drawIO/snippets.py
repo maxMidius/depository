@@ -59,3 +59,31 @@ with open('spotify.csv', 'r', encoding='utf-8') as infile,
   outfile.writelines(rows)
 
 print("Conversion complete! Check 'output.csv' for UTF-8 encoded data.")
+
+#------------------ YAML to CSV ------------------
+import csv
+import yaml
+
+# Read the YAML file
+with open('input.yaml', 'r') as yaml_file:
+    data = yaml.safe_load(yaml_file)
+
+# Write the data to a CSV file
+with open('output.csv', 'w', newline='') as csv_file:
+    fieldnames = list(data[0].keys())
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(data)
+
+#------------------ YAML to CSV ------------------
+import csv
+import yaml
+
+with open('input.yaml', 'r') as yaml_file:
+    data = yaml.safe_load(yaml_file)
+
+with open('output.csv', 'w', newline='') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerow(data.keys())
+    for item in data:
+        writer.writerow(item.values())
