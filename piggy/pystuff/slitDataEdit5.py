@@ -15,6 +15,10 @@ if 'df' not in st.session_state:
         'Salary': [50000.0, 65000.0, 75000.0]  
     })  
 
+# Initialize selected rows in session state  
+if 'selected_rows' not in st.session_state:  
+    st.session_state.selected_rows = []  
+
 st.title('Advanced AG Grid Example')  
 
 # Custom CSS for the grid  
@@ -22,6 +26,9 @@ grid_css = {
     '.ag-cell-inline-editing': {'padding': '10px !important'},  
     '.ag-header-cell-label': {'font-weight': 'bold'}  
 }  
+
+def handle_selection(grid_return):  
+    st.session_state.selected_rows = grid_return['selected_rows']  
 
 # Configure column definitions with different types  
 column_defs = [  
@@ -89,35 +96,35 @@ grid_options = gb.build()
 grid_response = AgGrid(  
     st.session_state.df,  
     gridOptions=grid_options,  
-    update_mode=GridUpdateMode.MODEL_CHANGED,  
+    update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,  
     fit_columns_on_grid_load=True,  
     allow_unsafe_jscode=True,  
     custom_css=grid_css,  
     height=400,  
-    key='grid_1'  
+    key='grid_1',  
+    on_grid_ready=handle_selection  
 )  
 
-# Get the updated dataframe  
-updated_df = grid_response['data']  
-st.session_state.df = pd.DataFrame(updated_df)  
+# Update the dataframe with any edits  
+st.session_state.df = pd.DataFrame(grid_response['data'])  
 
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
-    if 'selected_rows' in grid_response:  
-        selected_rows = grid_response['selected_rows']  
-        if len(selected_rows) > 0:  
-            # Create a list of indices to drop  
-            indices_to_drop = []  
-            for index, row in st.session_state.df.iterrows():  
-                for selected_row in selected_rows:  
-                    if row['Name'] == selected_row['Name']:  # Using Name as unique identifier  
-                        indices_to_drop.append(index)  
-                        break  
+    if st.session_state.selected_rows:  
+        # Get names of selected rows  
+        selected_names = [row['Name'] for row in st.session_state.selected_rows]  
+        # Create mask for rows to keep  
+        mask = ~st.session_state.df['Name'].isin(selected_names)  
+        # Update dataframe  
+        st.session_state.df = st.session_state.df[mask]  
+        # Clear selected rows  
+        st.session_state.selected_rows = []  
+        # Rerun to refresh the grid  
+        st.experimental_rerun()  
 
-            # Drop the selected indices  
-            st.session_state.df = st.session_state.df.drop(indices_to_drop).reset_index(drop=True)  
-            st.experimental_rerun()  
+# Debug information  
+st.write("Selected Rows:")  
+st.write(st.session_state.selected_rows)  
 
-# Display the current dataframe (optional)  
 st.write("Current DataFrame:")  
 st.write(st.session_state.df)  
