@@ -103,17 +103,15 @@ st.session_state.df = pd.DataFrame(updated_df)
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
     selected_rows = grid_response['selected_rows']  
-    if selected_rows:  
-        # Get indices of rows to keep  
-        indices_to_keep = []  
-        for index, row in st.session_state.df.iterrows():  
-            if not any(all(str(row[col]) == str(selected[col])   
-                         for col in row.index)   
-                      for selected in selected_rows):  
-                indices_to_keep.append(index)  
-
-        # Keep only the non-selected rows  
-        st.session_state.df = st.session_state.df.loc[indices_to_keep].reset_index(drop=True)  
+    if len(selected_rows) > 0:  
+        # Convert selected_rows to a set of tuples for comparison  
+        selected_set = {tuple(row.values()) for row in selected_rows}  
+        # Convert DataFrame rows to set of tuples for comparison  
+        df_set = {tuple(row) for row in st.session_state.df.values}  
+        # Keep only rows that are not in selected_set  
+        rows_to_keep = df_set - selected_set  
+        # Convert back to DataFrame  
+        st.session_state.df = pd.DataFrame(list(rows_to_keep), columns=st.session_state.df.columns)  
         st.experimental_rerun()  
 
 # Display the current dataframe (optional)  
