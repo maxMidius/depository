@@ -85,31 +85,42 @@ for col_def in column_defs:
 
 grid_options = gb.build()  
 
-# Display the grid  
+# Create a key for the grid  
+grid_key = "my_grid"  
+
+# Display the grid with a key  
 grid_response = AgGrid(  
     st.session_state.df,  
     gridOptions=grid_options,  
-    update_mode=GridUpdateMode.MODEL_CHANGED,  
+    update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,  
     fit_columns_on_grid_load=True,  
     allow_unsafe_jscode=True,  
     custom_css=grid_css,  
-    height=400  
+    height=400,  
+    key=grid_key  
 )  
 
-# Get the updated dataframe  
+# Get the updated dataframe and selected rows  
 updated_df = grid_response['data']  
-st.session_state.df = pd.DataFrame(updated_df)  
+selected_rows = grid_response['selected_rows']  
 
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
-    selected_rows = grid_response['selected_rows']  
-    if len(selected_rows) > 0:  
-        # Get the names of selected rows (assuming Name is unique)  
-        selected_names = [row['Name'] for row in selected_rows]  
-        # Filter out the selected rows  
-        st.session_state.df = st.session_state.df[~st.session_state.df['Name'].isin(selected_names)]  
+    if selected_rows:  # Check if there are any selected rows  
+        # Convert selected rows to a DataFrame  
+        selected_df = pd.DataFrame(selected_rows)  
+
+        # Keep rows that are not in selected_df  
+        mask = ~st.session_state.df['Name'].isin(selected_df['Name'])  
+        st.session_state.df = st.session_state.df[mask].reset_index(drop=True)  
+
+        # Rerun the app to refresh the grid  
         st.experimental_rerun()  
 
 # Display the current dataframe (optional)  
 st.write("Current DataFrame:")  
 st.write(st.session_state.df)  
+
+# Optionally display selected rows for debugging  
+st.write("Selected Rows:")  
+st.write(selected_rows)  
