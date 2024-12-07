@@ -85,42 +85,39 @@ for col_def in column_defs:
 
 grid_options = gb.build()  
 
-# Create a key for the grid  
-grid_key = "my_grid"  
-
-# Display the grid with a key  
+# Display the grid  
 grid_response = AgGrid(  
     st.session_state.df,  
     gridOptions=grid_options,  
-    update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,  
+    update_mode=GridUpdateMode.MODEL_CHANGED,  
     fit_columns_on_grid_load=True,  
     allow_unsafe_jscode=True,  
     custom_css=grid_css,  
     height=400,  
-    key=grid_key  
+    key='grid_1'  
 )  
 
-# Get the updated dataframe and selected rows  
+# Get the updated dataframe  
 updated_df = grid_response['data']  
-selected_rows = grid_response['selected_rows']  
+st.session_state.df = pd.DataFrame(updated_df)  
 
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
-    if selected_rows:  # Check if there are any selected rows  
-        # Convert selected rows to a DataFrame  
-        selected_df = pd.DataFrame(selected_rows)  
+    if 'selected_rows' in grid_response:  
+        selected_rows = grid_response['selected_rows']  
+        if len(selected_rows) > 0:  
+            # Create a list of indices to drop  
+            indices_to_drop = []  
+            for index, row in st.session_state.df.iterrows():  
+                for selected_row in selected_rows:  
+                    if row['Name'] == selected_row['Name']:  # Using Name as unique identifier  
+                        indices_to_drop.append(index)  
+                        break  
 
-        # Keep rows that are not in selected_df  
-        mask = ~st.session_state.df['Name'].isin(selected_df['Name'])  
-        st.session_state.df = st.session_state.df[mask].reset_index(drop=True)  
-
-        # Rerun the app to refresh the grid  
-        st.experimental_rerun()  
+            # Drop the selected indices  
+            st.session_state.df = st.session_state.df.drop(indices_to_drop).reset_index(drop=True)  
+            st.experimental_rerun()  
 
 # Display the current dataframe (optional)  
 st.write("Current DataFrame:")  
 st.write(st.session_state.df)  
-
-# Optionally display selected rows for debugging  
-st.write("Selected Rows:")  
-st.write(selected_rows)  
