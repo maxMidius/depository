@@ -15,10 +15,6 @@ if 'df' not in st.session_state:
         'Salary': [50000.0, 65000.0, 75000.0]  
     })  
 
-# Initialize selected rows in session state  
-if 'selected_rows' not in st.session_state:  
-    st.session_state.selected_rows = []  
-
 st.title('Advanced AG Grid Example')  
 
 # Custom CSS for the grid  
@@ -27,9 +23,6 @@ grid_css = {
     '.ag-header-cell-label': {'font-weight': 'bold'}  
 }  
 
-def handle_selection(grid_return):  
-    st.session_state.selected_rows = grid_return['selected_rows']  
-
 # Configure column definitions with different types  
 column_defs = [  
     {  
@@ -37,7 +30,8 @@ column_defs = [
         'editable': True,  
         'resizable': True,  
         'sortable': True,  
-        'filter': True  
+        'filter': True,  
+        'checkboxSelection': True  # Enable checkbox selection for this column  
     },  
     {  
         'field': 'Age',  
@@ -82,9 +76,10 @@ if st.button('Add Row'):
 
 # Configure grid options  
 gb = GridOptionsBuilder.from_dataframe(st.session_state.df)  
-gb.configure_default_column(editable=True, resizable=True)  
-gb.configure_selection(selection_mode='multiple', use_checkbox=True)  
-gb.configure_grid_options(enableRangeSelection=True)  
+
+# Configure selection before configuring columns  
+gb.configure_selection(selection_mode='multiple', use_checkbox=True, pre_selected_rows=[])  
+gb.configure_grid_options(suppressRowClickSelection=True)  
 
 # Apply column definitions  
 for col_def in column_defs:  
@@ -101,30 +96,30 @@ grid_response = AgGrid(
     allow_unsafe_jscode=True,  
     custom_css=grid_css,  
     height=400,  
-    key='grid_1',  
-    on_grid_ready=handle_selection  
+    key='grid_1'  
 )  
 
 # Update the dataframe with any edits  
 st.session_state.df = pd.DataFrame(grid_response['data'])  
 
+# Get selected rows directly from grid_response  
+selected_rows = grid_response.selected_rows  
+
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
-    if st.session_state.selected_rows:  
+    if selected_rows:  # Check if there are any selected rows  
         # Get names of selected rows  
-        selected_names = [row['Name'] for row in st.session_state.selected_rows]  
+        selected_names = [row['Name'] for row in selected_rows]  
         # Create mask for rows to keep  
         mask = ~st.session_state.df['Name'].isin(selected_names)  
         # Update dataframe  
         st.session_state.df = st.session_state.df[mask]  
-        # Clear selected rows  
-        st.session_state.selected_rows = []  
         # Rerun to refresh the grid  
         st.experimental_rerun()  
 
 # Debug information  
 st.write("Selected Rows:")  
-st.write(st.session_state.selected_rows)  
+st.write(selected_rows)  
 
 st.write("Current DataFrame:")  
 st.write(st.session_state.df)  
