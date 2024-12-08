@@ -102,14 +102,12 @@ grid_response = AgGrid(
 # Update the dataframe with any edits  
 st.session_state.df = pd.DataFrame(grid_response['data'])  
 
-# Get selected rows directly from grid_response  
-selected_rows = grid_response['selected_rows']  
-
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
+    selected_rows = grid_response['selected_rows']  
     if len(selected_rows) > 0:  # Check if there are any selected rows  
         # Get names of selected rows  
-        selected_names = set(row['Name'] for row in selected_rows)  
+        selected_names = [row['Name'] for row in selected_rows]  
         # Keep only rows whose names are not in selected_names  
         st.session_state.df = st.session_state.df[~st.session_state.df['Name'].isin(selected_names)].reset_index(drop=True)  
         # Rerun to refresh the grid  
@@ -117,7 +115,7 @@ if st.button('Delete Selected Rows'):
 
 # Debug information  
 st.write("Selected Rows:")  
-st.write(selected_rows)  
+st.write(grid_response['selected_rows'])  
 
 st.write("Current DataFrame:")  
 st.write(st.session_state.df)  
