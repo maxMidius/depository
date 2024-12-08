@@ -103,7 +103,7 @@ grid_response = AgGrid(
 st.session_state.df = pd.DataFrame(grid_response['data'])  
 
 # Get selected rows directly from grid_response  
-selected_rows = grid_response.selected_rows  
+selected_rows = grid_response['selected_rows']  
 
 # Delete selected rows  
 if st.button('Delete Selected Rows'):  
