@@ -51,7 +51,7 @@ def delete_task(project_id, deliverable_id, task_id):
     del st.session_state.projects[project_id]['deliverables'][deliverable_id]['tasks'][task_id]
     calculate_rollups(project_id)
 
-st.subheader("Projects ==>  Deliverables ==>  Tasks ")
+st.title("Project Management System")
 
 # Sidebar for project management
 with st.sidebar:
@@ -89,7 +89,6 @@ with st.sidebar:
 
 # Main content area
 if st.session_state.projects:
-    # Project selection
     selected_project_id = st.selectbox(
         "Select Project",
         options=list(st.session_state.projects.keys()),
@@ -99,17 +98,23 @@ if st.session_state.projects:
 
     project = st.session_state.projects[selected_project_id]
 
-    # Project details
-    col1, col2 = st.columns([3, 1])
+    # Project details and editing
+    col1, col2, col3 = st.columns([2, 2, 1])
     with col1:
-        st.header(f"Project: {project['title']}")
+        new_title = st.text_input("Project Title", value=project['title'], key=f"edit_proj_title_{project['id']}")
     with col2:
+        new_type = st.selectbox("Project Type", 
+                               ["Development", "Research", "Infrastructure"],
+                               index=["Development", "Research", "Infrastructure"].index(project['type']),
+                               key=f"edit_proj_type_{project['id']}")
+    with col3:
         if st.button("Delete Project", key=f"del_proj_{selected_project_id}"):
             delete_project(selected_project_id)
             st.rerun()
 
-    st.write(f"Type: {project['type']}")
-    st.write(f"ID: {project['id']}")
+    # Update project details
+    project['title'] = new_title
+    project['type'] = new_type
 
     # Deliverables section
     st.subheader("Deliverables")
@@ -132,9 +137,13 @@ if st.session_state.projects:
     # Display deliverables
     for del_id, deliverable in project['deliverables'].items():
         with st.expander(f"Deliverable: {deliverable['title']}"):
+            # Deliverable editing
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write(f"ID: {deliverable['id']}")
+                new_del_title = st.text_input("Deliverable Title", 
+                                            value=deliverable['title'],
+                                            key=f"edit_del_title_{del_id}")
+                deliverable['title'] = new_del_title
             with col2:
                 if st.button("Delete Deliverable", key=f"del_del_{del_id}"):
                     delete_deliverable(selected_project_id, del_id)
@@ -146,7 +155,7 @@ if st.session_state.projects:
             # Add new task
             st.subheader("Add New Task")
             task_title = st.text_input(
-                f"Task Title for {deliverable['title']}", 
+                "Task Title", 
                 key=f"task_title_{del_id}"
             )
             task_effort = st.number_input(
@@ -174,15 +183,33 @@ if st.session_state.projects:
                     calculate_rollups(selected_project_id)
                     st.success(f"Added task: {task_title}")
 
-            # Display tasks
+            # Display tasks with editing capability
             if deliverable['tasks']:
                 st.subheader("Tasks")
                 for task_id, task in deliverable['tasks'].items():
-                    col1, col2 = st.columns([3, 1])
+                    col1, col2, col3, col4 = st.columns([2, 1, 2, 1])
                     with col1:
-                        st.write(f"- {task['title']} (Effort: {task['effort']})")
-                        st.write(f"  Team: {', '.join(task['team_members'])}")
+                        new_task_title = st.text_input("Task Title",
+                                                     value=task['title'],
+                                                     key=f"edit_task_title_{task_id}")
+                        task['title'] = new_task_title
                     with col2:
+                        new_task_effort = st.number_input("Effort",
+                                                        min_value=1,
+                                                        max_value=20,
+                                                        value=task['effort'],
+                                                        key=f"edit_task_effort_{task_id}")
+                        task['effort'] = new_task_effort
+                    with col3:
+                        new_team_members = st.multiselect(
+                            "Team Members",
+                            ["Team Member 1", "Team Member 2", "Team Member 3", "Team Member 4"],
+                            default=task['team_members'],
+                            key=f"edit_task_team_{task_id}"
+                        )
+                        task['team_members'] = new_team_members
+                        calculate_rollups(selected_project_id)
+                    with col4:
                         if st.button("Delete Task", key=f"del_task_{task_id}"):
                             delete_task(selected_project_id, del_id, task_id)
                             st.rerun()
@@ -232,3 +259,7 @@ if st.session_state.projects:
 
 else:
     st.info("No projects yet. Create a new project using the sidebar.")
+
+
+#===========================================================================
+
