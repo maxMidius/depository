@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <!-- Background Styles -->
+    <defs>
+        <linearGradient id="headerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#f0f4f8;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#e1e8ef;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <!-- Layer 1: End-User Services -->
+    <g transform="translate(0,0)">
+        <rect x="100" y="50" width="600" height="100" rx="10" fill="url(#headerGrad)" stroke="#2d3748" stroke-width="2"/>
+        <text x="400" y="85" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="16" fill="#2d3748">End-User Services</text>
+        <text x="400" y="115" text-anchor="middle" font-family="Arial" font-size="14" fill="#4a5568">GitHub Copilot | Codeium | ChatGPT | Claude.ai | Jasper</text>
+    </g>
+
+    <!-- Connecting Arrow 1 -->
+    <g transform="translate(0,150)">
+        <path d="M400,10 L400,40" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="420" y="30" font-family="Arial" font-size="12" fill="#4a5568">Uses APIs</text>
+    </g>
+
+    <!-- Layer 2: APIs/SDKs -->
+    <g transform="translate(0,200)">
+        <rect x="100" y="0" width="600" height="100" rx="10" fill="url(#headerGrad)" stroke="#2d3748" stroke-width="2"/>
+        <text x="400" y="35" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="16" fill="#2d3748">APIs/SDKs</text>
+        <text x="400" y="65" text-anchor="middle" font-family="Arial" font-size="14" fill="#4a5568">OpenAI API | Anthropic API | Google Cloud AI | Azure AI</text>
+    </g>
+
+    <!-- Connecting Arrow 2 -->
+    <g transform="translate(0,300)">
+        <path d="M400,10 L400,40" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="430" y="30" font-family="Arial" font-size="12" fill="#4a5568">Access Models</text>
+    </g>
+
+    <!-- Layer 3: AI Models -->
+    <g transform="translate(0,350)">
+        <rect x="100" y="0" width="600" height="100" rx="10" fill="url(#headerGrad)" stroke="#2d3748" stroke-width="2"/>
+        <text x="400" y="35" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="16" fill="#2d3748">AI Models (Core)</text>
+        <text x="400" y="65" text-anchor="middle" font-family="Arial" font-size="14" fill="#4a5568">GPT-4 | Claude | Codex | LLaMA | Stable Diffusion</text>
+    </g>
+
+    <!-- Connecting Arrow 3 -->
+    <g transform="translate(0,450)">
+        <path d="M400,10 L400,40" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="420" y="30" font-family="Arial" font-size="12" fill="#4a5568">Built On</text>
+    </g>
+
+    <!-- Layer 4: Infrastructure -->
+    <g transform="translate(0,500)">
+        <rect x="100" y="0" width="600" height="100" rx="10" fill="url(#headerGrad)" stroke="#2d3748" stroke-width="2"/>
+        <text x="400" y="35" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="16" fill="#2d3748">Infrastructure/Hardware</text>
+        <text x="400" y="65" text-anchor="middle" font-family="Arial" font-size="14" fill="#4a5568">GPUs | TPUs | Cloud Platforms (AWS, Azure, GCP)</text>
+    </g>
+
+    <!-- Arrow Marker Definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#4a5568"/>
+        </marker>
+    </defs>
+</svg>
