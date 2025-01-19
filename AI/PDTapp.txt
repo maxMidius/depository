@@ -1,0 +1,8 @@
+
+Can we create a marimo notebook which will declare the above structures as three dataframes  and link them into a tree structure like so
+Project (1) --> Deliverables(n)
+Deliverable(1)  --> Tasks (n)
+The minimal  marimo app should allow user to enter/edit/delete new data for the following fields:
+Project -->  ShortId, Brief, Type,  Tags
+Deliverable --> ShortId, Brief, Tags
+Task -->  ShortId, Brief,  Task_Team, Effort

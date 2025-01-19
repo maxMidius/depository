@@ -1,0 +1,21 @@
+Let us create a Project with attribs :
+1. Project Id (auto-unique)
+2. Project Short Id (e.g. INF_001)
+3. Project Type  (INFRA, RESEARCH, DEVELOP, SUPPORT,OTHER)
+4. Project Brief  ( "some oneliner description")
+5. Proj Tags  (A list of tags entered by user)
+
+Project can have one or more deliverables  - Deliverable with attribs :
+1.  Deliv Id (auto-unique)
+2. Deliv Short Id (e.g.  DEL_001)
+3. Deliv Brief ("some one liner description")
+4. Deliv Tags (A list of tags entered by user)
+5. Team  (List of people working on it - bubbled up from tasks)
+6. Effort (Elapsed time estimate - bubbled up from tasks)
+
+Deliverable can have one or tasks -  Task with attribs :
+1.  Task Id (auto-unique)
+2. Task Short Id  (e.g.  TSK_001)
+3. Task Brief ("some one liner description")
+4. Task_Team (List of  people workin on task)
+5.  Effort (Est time to complete task)
