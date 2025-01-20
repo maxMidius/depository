@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dash import Dash, html, dcc, dash_table, Input, Output, State, no_update
 import dash_bootstrap_components as dbc
+import dash_quill
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from models.faq_models import Base, QuestionGroup, Question, Tag, Answer
@@ -15,10 +16,44 @@ from dash import callback_context as ctx
 engine = create_engine('sqlite:///faq.db')
 Session = sessionmaker(bind=engine)
 
+# Initialize Dash app
+app = Dash(__name__, 
+    external_stylesheets=[
+        dbc.themes.BOOTSTRAP,
+        "https://www.w3schools.com/w3css/4/w3.css"
+    ],
+    suppress_callback_exceptions=True
+)
+
+# Add custom CSS
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>FAQ Editor</title>
+        {%css%}
+        <style>
+            .answer-editor .quill-editor {
+                min-height: 200px;
+                margin-bottom: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 def layout():
     return html.Div([
-        dcc.Location(id='url', refresh=False),  # Add URL tracking
-        # Add Alert Components
+        dcc.Location(id='url', refresh=False),
         dbc.Alert(id='success-alert', is_open=False, duration=4000, color="success"),
         dbc.Alert(id='error-alert', is_open=False, duration=4000, color="danger"),
         dbc.Row([
@@ -51,31 +86,49 @@ def layout():
                 dbc.Row([
                     dbc.Col([
                         dbc.Label("Question Number"),
-                        dbc.Input(id='question-number', type='text', placeholder="A:001")
+                        dbc.Input(
+                            id='question-number',
+                            type='text',
+                            placeholder='A:001',
+                            disabled=True
+                        )
                     ], className="mb-3"),
                 ]),
                 
                 dbc.Row([
                     dbc.Col([
                         dbc.Label("Question"),
-                        dbc.Textarea(id='question-text')
-                    ], className="mb-3"),
-                ]),
-                
-                dbc.Row([
-                    dbc.Col([
-                        dbc.Label("Tags"),
-                        dcc.Dropdown(id='tags-select', multi=True)
+                        dbc.Input(
+                            id='question-text',
+                            type='text',
+                            style={'width': '100%'}
+                        )
                     ], className="mb-3"),
                 ]),
                 
                 dbc.Row([
                     dbc.Col([
                         dbc.Label("Answer"),
-                        dcc.Textarea(
+                        dash_quill.Quill(
                             id='answer-text',
-                            style={'width': '100%', 'height': 200}
+                            modules={
+                                'toolbar': [
+                                    ['bold', 'italic', 'underline'],
+                                    ['blockquote', 'code-block'],
+                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                    [{ 'header': [1, 2, 3, 4, 5, 6, False] }],
+                                    ['link', 'image'],
+                                    ['clean']
+                                ]
+                            }
                         )
+                    ], className="mb-3 answer-editor"),
+                ]),
+                
+                dbc.Row([
+                    dbc.Col([
+                        dbc.Label("Tags"),
+                        dcc.Dropdown(id='tags-select', multi=True)
                     ], className="mb-3"),
                 ]),
                 
@@ -375,13 +428,6 @@ def init_callbacks(app):
         return [no_update] * 6
 
 if __name__ == '__main__':
-    app = Dash(__name__, 
-        external_stylesheets=[
-            dbc.themes.BOOTSTRAP,
-            "https://www.w3schools.com/w3css/4/w3.css"
-        ],
-        suppress_callback_exceptions=True  # Add this line
-    )
     app.layout = layout()
     init_callbacks(app)
     app.run_server(debug=True, port=8055)
