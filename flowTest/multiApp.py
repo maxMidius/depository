@@ -1,7 +1,7 @@
 from dash import html, dcc, Dash
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
-import dash
+from pages import landingPage, gslGallery, gslWorkings, dataExplorer
 
 # Initialize app with correct external stylesheets
 app = Dash(__name__, 
@@ -11,17 +11,6 @@ app = Dash(__name__,
         "https://www.w3schools.com/w3css/4/w3.css"
     ]
 )
-
-# Create page content components
-# Modify home_page function
-def home_page():
-    return html.Div([html.H1("Home Page", className='w3-sand')])
-
-def page1():
-    return html.Div([html.H1("Page 1", className='w3-blue')])
-
-def page2():
-    return html.Div([html.H1("Page 2", className='w3-green')])
 
 # Layout
 app.layout = dbc.Container([
@@ -48,21 +37,22 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
                 html.Div([
-                    html.A("Home", 
+                    html.A("About", 
                         href="/", 
                         className="w3-bar-item w3-button w3-round-large",
                         id="home-link",
                         style={"color": "black"}),
-                    html.A("Page 1", 
-                        href="/page-1", 
+                    html.A("Gallery", 
+                        href="/gallery", 
                         className="w3-bar-item w3-button w3-round-large",
-                        id="page1-link",
+                        id="gallery-link",
                         style={"color": "black"}),
-                    html.A("Page 2", 
-                        href="/page-2", 
+                    html.A("Workings", 
+                        href="/workings", 
                         className="w3-bar-item w3-button w3-round-large",
-                        id="page2-link",
-                        style={"color": "black"})
+                        id="workings-link",
+                        style={"color": "black"}),
+
                 ],
                 className="w3-bar-block w3-round-large")
             ],
@@ -100,34 +90,16 @@ def toggle_sidebar(n_clicks, is_visible):
 )
 def render_page_content(pathname):
     if pathname == "/":
-        return home_page()
-    elif pathname == "/page-1":
-        return page1()
-    elif pathname == "/page-2":
-        return page2()
+        return landingPage.layout()
+    elif pathname == "/gallery":
+        return gslGallery.layout()
+    elif pathname == "/workings":
+        return gslWorkings.layout()
+    elif pathname == "/explore":
+        layout_func, callbacks = dataExplorer.explore_dataset()
+        callbacks(app)
+        return layout_func()
     return html.Div("404 - Not found", className="p-3 bg-light")
-
-# Add new callback for menu highlighting
-@app.callback(
-    [Output("home-link", "style"),
-     Output("page1-link", "style"),
-     Output("page2-link", "style")],
-    Input("url", "pathname")
-)
-def highlight_active_page(pathname):
-    default_style = {"color": "black"}
-    active_style = {"background-color": "#607d8b", "color": "white"}
-    
-    styles = [default_style, default_style, default_style]
-    
-    if pathname == "/":
-        styles[0] = active_style
-    elif pathname == "/page-1":
-        styles[1] = active_style
-    elif pathname == "/page-2":
-        styles[2] = active_style
-        
-    return styles
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8050)
