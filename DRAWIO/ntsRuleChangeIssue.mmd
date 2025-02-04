@@ -1,0 +1,34 @@
+---
+config:
+  theme: forest
+---
+sequenceDiagram
+  participant COMP as Compliance
+  participant DNA 
+  participant RUST as Rule Store
+  participant RUUI  as  Reactor UUI
+  participant EVSTp as Event Store Prod
+  participant RUSTp as Rule Store Prod
+  participant STAMp as Stamper Prod
+  participant NTS 
+  autonumber
+  NTS ->> STAMp : v26 data
+  RUSTp ->> STAMp : v26 Rules
+  STAMp ->> EVSTp : v26 stamped events
+  EVSTp ->> RUUI : v26 stamped events
+  COMP -> DNA : Request changes
+  DNA ->> RUST: Make changes
+  loop Mock Test
+    RUST ->> RUST: Tune 
+  end
+  Note right of RUST: Ver 27 Looks Good!
+  DNA -->> COMP : Check Changes
+  RUUI -->> COMP : Sees Ver 27 rules
+  RUUI  -->> COMP : Sees Ver 26 stamped events
+  NTS ->>  STAMp : v27 data
+  RUSTp -->> STAMp : v26 rules
+  STAMp ->> EVSTp : v26 stamped - BAD events
+  COMP ->> DNA : Go ahead
+  DNA ->> RUSTp: Commit & Push 27
+  NTS ->> STAMp : v27 data
+  STAMp -->> EVSTp : v27stmaped  - GOOD events!
