@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>reveal.js - Auto Animate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    
+    <!-- Load these specific versions in the correct order -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.11.6/dist/browser/index.min.js"></script>
+    
+    <style>
+        #markmap {
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+        
+        /* Add some basic styling to make the markmap more visible */
+    </style>
+    
+    <!-- Include direct markmap rendering script -->
+    <script>
+        // Will be called after page loads
+
+
+        function renderMarkmap() {
+
+            const { Markmap } = markmap
+            console.log(Markmap)
+
+            const el = document.getElementById('markmap');
+            if (!el) {
+                console.error("Markmap element not found");
+                return;
+            }
+            
+            const markdown = el.getAttribute('data-markdown');
+            if (!markdown) {
+                console.error("No markdown content found");
+                return;
+            }
+            
+            el.innerHTML = '';
+            
+            // Log the complete markmap object structure
+            console.log("Markmap object:", window.markmap);
+            
+            try {
+                // Create SVG element
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.style.width = '100%';
+                svg.style.height = '100%';
+                el.appendChild(svg);
+                
+                // For these older versions, we need to use specific method signatures
+                // The markmap object should contain both transform and Markmap
+                    const transformer = new markmap.Transformer();
+                    const {root} = transformer.transform(markdown);
+                    
+                    // In older versions, the output structure is different
+                    // Create the markmap directly with the root data
+                    const mm  = Markmap.create(svg,undefined,root)
+                    console.log("Markmap created:", mm);
+            } catch (error) {
+                console.error("Error creating markmap:", error);
+                el.innerHTML = '<div style="color: red">Error: ' + error.message + '</div>';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class='reveal'>
+        <div class='slides'>
+            <section>
+                <h2>HELO WRLD</h2>
+                <div id="markmap" data-markdown="# Root
+## Branch 1
+- Leaf 1
+- Leaf 2"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    
+    <script>
+        // Initialize Reveal without the markmap plugin
+        Reveal.initialize({
+            center: true,
+            hash: true,
+            plugins: [RevealHighlight]
+        });
+        
+        // Initialize markmap after everything is loaded
+        window.addEventListener('load', function() {
+            setTimeout(renderMarkmap, 1000);
+        });
+    </script>
+</body>
+</html>
+

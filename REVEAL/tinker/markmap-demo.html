@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Reveal.js - Markmap Plugin Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Reveal.js styles -->
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <!-- link rel="stylesheet" href="../dist/theme/black.css" -->
+    <link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    
+    <!-- Load required libraries for markmap -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.11.6/dist/browser/index.min.js"></script>
+    
+    <style>
+        [data-markmap] {
+            margin: 0 auto;
+            height: 50vh;
+            border: 1px solid #399;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+
+        [data-markmap] svg {
+            background-color: inherit;
+            border: none; /* Remove inner border */
+        }
+        section {
+            height: 100vh; /* Full viewport height */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- First slide with a simple markmap -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b90, #293b40)" id="slide1" style="color:#ccc">
+                <h2>Markmap Plugin Demo</h2>
+                <div data-markmap data-markdown="# Markmap
+## Features
+- Renders markdown as mind maps
+- Interactive navigation
+- Smooth transitions
+
+## Benefits
+- Visual organization
+- Better knowledge retention
+- Easier to understand relationships"></div>
+            </section>
+            
+            <!-- Second slide with another markmap -->
+            <section>
+                <h2>Development Process</h2>
+                <div data-markmap data-markdown="# Development
+## Frontend
+- HTML
+- CSS
+- JavaScript
+  - React
+  - Vue
+  - Angular
+
+## Backend
+- Node.js
+- Python
+- Java
+- Go
+
+## Database
+- SQL
+  - MySQL
+  - PostgreSQL
+- NoSQL
+  - MongoDB
+  - Redis"></div>
+            </section>
+            
+            <!-- Third slide with a more complex markmap -->
+            <section>
+                <h2>Project Structure</h2>
+                <div data-markmap data-markdown="# Project
+## Documentation
+- README.md
+- API docs
+- User guides
+
+## Source Code
+- src/
+  - components/
+  - utils/
+  - services/
+  - models/
+
+## Tests
+- unit tests
+- integration tests
+- e2e tests
+
+## Build
+- webpack
+- rollup
+- vite"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Load Reveal.js -->
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    
+    <!-- Load our custom markmap plugin -->
+    <script src="../extend/markmap-plugin.js"></script>
+    
+    <!-- Initialize Reveal.js with our plugin -->
+    <script>
+        Reveal.initialize({
+            center: true,
+            hash: true,
+            plugins: [RevealHighlight, RevealMarkmap]
+        });
+    </script>
+</body>
+</html>
