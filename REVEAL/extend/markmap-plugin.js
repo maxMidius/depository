@@ -35,7 +35,7 @@ const RevealMarkmap = {
                 // Create SVG element
                 const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                 svg.style.width = '90%';
-                svg.style.height = '90%';
+                svg.style.height = '95%';
                 svg.style.display = 'block'; // Prevent extra space below SVG
                 svg.style.border = '0px solid #933';
                 el.appendChild(svg);
@@ -51,31 +51,21 @@ const RevealMarkmap = {
                 const mm = Markmap.create(svg, {
                     duration: 500,
                     autoFit: true, // Enable auto-fit
-                    fitRatio: 0.6, // Use full space
+                    fitRatio: 0.55, // Use full space
                 }, root);
 
-                // Adjust the viewBox to ensure the SVG is centered with a margin
-                const handleResize = () => {
-                    if (mm && mm.fit) {
-                        //mm.fit();
-                        const bbox = svg.getBBox();
-                        console.log(bbox)
-                        console.log(svg.width, svg.height)
-                        //const margin = 20; // Add a comfortable margin
-                        //const width = bbox.width*1.5 + 2 * margin;
-                        //const height = bbox.height*1.5 + 2 * margin;
-                        //const x = bbox.x - margin;
-                        //const y = bbox.y - margin;
+                // Add click handlers to nodes using foreignObject
+                mm.svg.selectAll('foreignObject').on('click', (e, d) => {
+                    const nodeText = d.data?.v || 'Unknown Node';
+                    console.log('Data:', d); // FlextreeNode<INode>
+                    onNodeClick(nodeText); // Call the custom method
+                });
 
-                        // svg.setAttribute('viewBox', `-${x} -${y} ${width} ${height}`);
-                        // svg.style.width = '110%';
-                        // svg.style.height = '110%';
-                    }
-                };
-
-                // Call resize handler initially and on window resize
-                // handleResize();
-                // window.addEventListener('resize', handleResize);
+                // Custom method to handle node clicks
+                function onNodeClick(nodeText) {
+                    alert(`You clicked on: ${nodeText}`);
+                    // Add your custom logic here (e.g., navigation, toggling)
+                }
             } catch (error) {
                 console.error("Error rendering markmap:", error);
                 el.innerHTML = '<div style="color: red">Error: ' + error.message + '</div>';

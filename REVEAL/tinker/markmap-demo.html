@@ -25,6 +25,7 @@
             align-items: center;
         }
 
+
         [data-markmap] svg {
             background-color: inherit;
             border: none; /* Remove inner border */
@@ -117,6 +118,11 @@
     
     <!-- Initialize Reveal.js with our plugin -->
     <script>
+        // Custom method to handle node clicks
+        function onNodeClick(nodeText) {
+            alert(`You clicked on: ${nodeText}`);
+            // Add your custom logic here (e.g., navigation, toggling)
+        }
         Reveal.initialize({
             center: true,
             hash: true,
