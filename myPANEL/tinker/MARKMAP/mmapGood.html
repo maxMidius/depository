@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Markmap Demo</title>
+    <style>
+        body { 
+            font-family: sans-serif;
+            margin: 20px; 
+        }
+        #markmap {
+            width: 800px;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+    <!-- Load the markmap libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.11.6/dist/browser/index.min.js"></script>
+</head>
+<body>
+    <h1>Simple Markmap Renderer</h1>
+    <div id="markmap"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Rendering markmap...");
+            
+            // Define markdown content
+            const markdown = `
+# Central Topic
+
+## Level 2 Topic 1
+- Sub-point 1.1
+- Sub-point 1.2
+
+## Level 2 Topic 2
+- Sub-point 2.1
+- Sub-point 2.2
+
+## Level 2 Topic 3
+### Level 3 Topic 3.1
+- Detail point 3.1.1
+- Detail point 3.1.2
+### Level 3 Topic 3.2
+- Detail point 3.2.1
+`;
+            
+            try {
+                // Get container and create SVG
+                const container = document.getElementById('markmap');
+                
+                // Create the markmap
+                const { Markmap } = markmap;
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.style.width = '100%';
+                svg.style.height = '100%';
+                container.appendChild(svg);
+                
+                // Transform markdown to markmap data
+                const transformer = new markmap.Transformer();
+                const { root } = transformer.transform(markdown);
+                
+                // Render the markmap
+                const mm = Markmap.create(svg, undefined, root);
+                
+                console.log("Markmap rendered successfully");
+            } catch (error) {
+                console.error("Error rendering markmap:", error);
+                document.getElementById('markmap').innerHTML = 
+                    `<div style="color:red;padding:20px;">Error rendering markmap: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

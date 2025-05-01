@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reveal.js with Markmap</title>
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/black.css">
+    <!-- Include markmap-view and markmap-lib -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view"></script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>Markmap Integration</h2>
+                <div id="mmap1" style="width: 800px; height: 600px;"></div>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script>
+        // Initialize reveal.js
+        Reveal.initialize();
+
+        // Define your Markdown content
+        const markdown = `
+        # Root
+        ## Branch 1
+        - Leaf 1
+        - Leaf 2
+        ## Branch 2
+        - Leaf 3
+        - Leaf 4
+        `;
+
+        // Transform Markdown into markmap data
+        const { transform } = window.markmap;
+        const { root } = transform(markdown);
+
+        // Render the markmap
+        const { Markmap, loadCSS, loadJS } = window.markmap;
+        Markmap.create('#markmap', null, root);
+    </script>
+</body>
+</html>

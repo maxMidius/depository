@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Network</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 600px;
+        height: 400px;
+        border: 1px solid lightgray;
+      }
+      .node-info {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mynetwork"></div>
+    <div id="nodeInfo" class="node-info">
+      <p>Clicked node: <span id="clickedNode">None</span></p>
+    </div>
+    
+    <script type="text/javascript">
+      // create an array with nodes
+      var nodes = new vis.DataSet([
+        { id: 1, label: "Node 1" },
+        { id: 2, label: "Node 2" },
+        { id: 3, label: "Node 3" },
+        { id: 4, label: "Node 4" },
+        { id: 5, label: "Node 5" },
+      ]);
+
+      // create an array with edges
+      var edges = new vis.DataSet([
+        { from: 1, to: 3 },
+        { from: 1, to: 2 },
+        { from: 2, to: 4 },
+        { from: 2, to: 5 },
+        { from: 3, to: 3 },
+      ]);
+
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {
+        nodes: {
+          shape: "dot",
+          size: 30,
+          font: {
+            size: 14,
+            face: "Tahoma",
+          },
+          borderWidth: 2,
+          shadow: true
+        },
+        edges: {
+          width: 2,
+          shadow: true
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 200
+        }
+      };
+      var network = new vis.Network(container, data, options);
+      
+      // Add click event handler
+      network.on("click", function(params) {
+        // Check if a node was clicked
+        if (params.nodes.length > 0) {
+          var nodeId = params.nodes[0];
+          var clickedNode = nodes.get(nodeId);
+          
+          console.log("Clicked on node:", clickedNode);
+          
+          // Update the info div
+          document.getElementById("clickedNode").textContent = clickedNode.label;
+          document.getElementById("nodeInfo").style.display = "block";
+          
+          // You can also handle different actions based on the node
+          if (nodeId === 1) {
+            console.log("This is the first node!");
+          }
+        } else {
+          // Clicked on empty space or an edge
+          console.log("Clicked on the background or an edge");
+          document.getElementById("nodeInfo").style.display = "none";
+        }
+      });
+      
+      // Add hover event
+      network.on("hoverNode", function(params) {
+        console.log("Hovering over node: " + nodes.get(params.node).label);
+      });
+    </script>
+  </body>
+</html>

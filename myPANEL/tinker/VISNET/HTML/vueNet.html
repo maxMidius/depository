@@ -1,0 +1,113 @@
+<!-- filepath: /home/maximus/GIT/DR/depository/myPANEL/tinker/VISNET/vueNet.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Network Graph Example</title>
+  <!-- Force browser to load a fresh copy -->
+  <link href="https://cdn.jsdelivr.net/npm/v-network-graph@0.9.10/dist/style.css" rel="stylesheet">
+  <style>
+    #app {
+      width: 800px;
+      height: 600px;
+      margin: 0 auto;
+    }
+    .info-panel {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="network-container" style="height: 500px; border: 1px solid #ddd;"></div>
+    
+    <div class="info-panel" v-if="selectedNode">
+      <h3>Node Details</h3>
+      <p>Selected node: {{ selectedNode }}</p>
+    </div>
+  </div>
+
+  <!-- Use script tags with known-working CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    
+    // Create the Vue application using vanilla vis-network instead
+    const app = createApp({
+      setup() {
+        const selectedNode = ref(null);
+        const network = ref(null);
+        
+        // Define nodes and edges
+        const nodes = new vis.DataSet([
+          { id: 1, label: "Node 1" },
+          { id: 2, label: "Node 2" },
+          { id: 3, label: "Node 3" },
+          { id: 4, label: "Node 4" },
+          { id: 5, label: "Node 5" },
+        ]);
+        
+        const edges = new vis.DataSet([
+          { from: 1, to: 3 },
+          { from: 1, to: 2 },
+          { from: 2, to: 4 },
+          { from: 2, to: 5 },
+          { from: 3, to: 3 },
+        ]);
+
+        onMounted(() => {
+          const container = document.getElementById('network-container');
+          const data = {
+            nodes: nodes,
+            edges: edges
+          };
+          const options = {
+            nodes: {
+              shape: 'dot',
+              size: 20,
+              font: {
+                size: 14,
+                color: '#000000'
+              },
+              borderWidth: 2
+            },
+            edges: {
+              width: 2,
+              color: {
+                color: '#37474F',
+                highlight: '#607D8B'
+              }
+            },
+            interaction: {
+              hover: true
+            }
+          };
+          network.value = new vis.Network(container, data, options);
+
+          network.value.on('click', function (params) {
+            if (params.nodes.length > 0) {
+              selectedNode.value = nodes.get(params.nodes[0]).label;
+              console.log("Clicked on node:", selectedNode.value);
+            } else {
+              selectedNode.value = null;
+            }
+          });
+        });
+
+        return {
+          selectedNode
+        };
+      }
+    });
+    
+    // Mount the application
+    app.mount("#app");
+  </script>
+</body>
+</html>
