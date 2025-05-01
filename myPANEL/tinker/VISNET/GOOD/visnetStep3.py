@@ -253,8 +253,7 @@ selector_container = pn.Column(
 # Create an info panel to display click events
 event_display = pn.pane.HTML(
     pn.bind(lambda info: info, network_component.param.click_info),
-    sizing_mode="stretch_width",
-    height=150,
+    sizing_mode="stretch_both",
     css_classes=["w3-container", "w3-card-2", "w3-round"]
 )
 
@@ -263,15 +262,19 @@ event_title = pn.pane.HTML(
     """<div class="w3-container w3-light-grey">
         <h3>Click Event Information</h3>
     </div>""",
-    sizing_mode="stretch_both"
+    sizing_mode="stretch_width"
 )
 
 # Server display with the header, selector, network and event display
-pn.Column(
-    header,
-    selector_container,
-    network_component,
-    event_title,
-    event_display,
-    css_classes=["w3-container", "w3-light-grey"]
-).servable()
+def doLayout() :
+    return pn.Column(
+        header,
+        selector_container,
+        network_component,
+        event_title,
+        event_display,
+        css_classes=["w3-container", "w3-light-grey"],
+        sizing_mode="stretch_both"
+    )
+
+doLayout().servable()
