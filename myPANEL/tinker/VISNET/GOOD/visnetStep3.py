@@ -155,6 +155,19 @@ class VisNetComponent(JSComponent):
         };
         
         let network = create_network();
+        
+        // Listen for the fit_view message
+        model.on("msg:custom", (msg) => {
+            if (msg === "fit_view") {
+                console.log("Fitting network to view");
+                network.fit({
+                    animation: {
+                        duration: 800,
+                        easingFunction: "easeInOutQuad"
+                    }
+                });
+            }
+        });
 
         model.on("object", () => {
             collapsedNodes.clear();
@@ -199,6 +212,10 @@ class VisNetComponent(JSComponent):
                 {f"<p><strong>Dashed:</strong> {'Yes' if edge_data.get('dashes') else 'No'}</p>" if 'dashes' in edge_data else ""}
             </div>
             """
+    
+    # Add method to fit view
+    def fit_view(self, event=None):
+        self._send_msg("fit_view")
 
 # Get all available networks
 networks = available_networks()
@@ -213,6 +230,15 @@ network_selector = pn.widgets.Select(
     css_classes=["w3-select", "w3-border", "w3-round"]
 )
 
+# Create a reset button
+reset_button = pn.widgets.Button(
+    name="Reset View",
+    button_type="primary",
+    icon="refresh",
+    css_classes=["w3-button", "w3-teal", "w3-round"],
+    width=150
+)
+
 # Create a function to get the selected network data
 def get_selected_network(network_name):
     return networks[network_name]()
@@ -223,6 +249,9 @@ network_component = VisNetComponent(
     height=400, 
     sizing_mode="stretch_width"
 )
+
+# Link the button to the fit_view method
+reset_button.on_click(network_component.fit_view)
 
 # Create a header with W3.CSS badge
 header_html = """
@@ -245,7 +274,7 @@ selector_title = pn.pane.HTML(
 
 selector_container = pn.Column(
     selector_title,
-    pn.Row(network_selector),
+    pn.Row(network_selector, reset_button),  # Add reset button next to selector
     css_classes=["w3-container", "w3-card-2", "w3-round", "w3-margin-bottom"],
     sizing_mode="stretch_width"
 )
