@@ -1,0 +1,1 @@
+# Make visData a proper Python package
