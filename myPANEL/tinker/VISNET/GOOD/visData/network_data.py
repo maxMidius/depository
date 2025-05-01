@@ -1,4 +1,5 @@
-def network_data():
+def hierarchical_tree_data():
+    """Original hierarchical tree data set."""
     return {
         "data": {
             "nodes": [
@@ -97,3 +98,128 @@ def network_data():
             }
         }
     }
+
+def mesh_network_data():
+    """A mesh-style network with bidirectional connections."""
+    return {
+        "data": {
+            "nodes": [
+                {"id": 1, "label": "Server", "level": 0, "group": "server"},
+                {"id": 2, "label": "Router 1", "level": 1, "group": "network"},
+                {"id": 3, "label": "Router 2", "level": 1, "group": "network"},
+                {"id": 4, "label": "Router 3", "level": 1, "group": "network"},
+                {"id": 5, "label": "Client 1", "level": 2, "group": "client"},
+                {"id": 6, "label": "Client 2", "level": 2, "group": "client"},
+                {"id": 7, "label": "Client 3", "level": 2, "group": "client"},
+                {"id": 8, "label": "Client 4", "level": 2, "group": "client"},
+                {"id": 9, "label": "Client 5", "level": 2, "group": "client"},
+                {"id": 10, "label": "Client 6", "level": 2, "group": "client"}
+            ],
+            "edges": [
+                # Server to Routers
+                {"id": "e1-2", "from": 1, "to": 2, "label": "100Mbps", "width": 2},
+                {"id": "e1-3", "from": 1, "to": 3, "label": "100Mbps", "width": 2},
+                {"id": "e1-4", "from": 1, "to": 4, "label": "100Mbps", "width": 2},
+                
+                # Router interconnections (mesh)
+                {"id": "e2-3", "from": 2, "to": 3, "label": "10Mbps", "dashes": True},
+                {"id": "e3-4", "from": 3, "to": 4, "label": "10Mbps", "dashes": True},
+                {"id": "e4-2", "from": 4, "to": 2, "label": "10Mbps", "dashes": True},
+                
+                # Router 1 to Clients
+                {"id": "e2-5", "from": 2, "to": 5, "label": "1Mbps"},
+                {"id": "e2-6", "from": 2, "to": 6, "label": "1Mbps"},
+                
+                # Router 2 to Clients
+                {"id": "e3-7", "from": 3, "to": 7, "label": "1Mbps"},
+                {"id": "e3-8", "from": 3, "to": 8, "label": "1Mbps"},
+                
+                # Router 3 to Clients
+                {"id": "e4-9", "from": 4, "to": 9, "label": "1Mbps"},
+                {"id": "e4-10", "from": 4, "to": 10, "label": "1Mbps"}
+            ]
+        },
+        "options": {
+            "physics": {
+                "enabled": True,
+                "barnesHut": {
+                    "gravitationalConstant": -2000,
+                    "centralGravity": 0.3,
+                    "springLength": 150,
+                    "springConstant": 0.04,
+                    "damping": 0.09
+                }
+            },
+            "layout": {
+                "hierarchical": {
+                    "enabled": False
+                }
+            },
+            "nodes": {
+                "shape": "dot",
+                "size": 16,
+                "color": {
+                    "border": "#2B7CE9",
+                    "background": "#97C2FC",
+                    "highlight": {
+                        "border": "#FFA500",
+                        "background": "#FFC864"
+                    }
+                }
+            },
+            "edges": {
+                "arrows": {
+                    "to": {
+                        "enabled": True,
+                        "scaleFactor": 0.5
+                    },
+                    "from": {
+                        "enabled": True,
+                        "scaleFactor": 0.2
+                    }
+                },
+                "color": {
+                    "color": "#848484",
+                    "highlight": "#FF0000"
+                },
+                "font": {
+                    "align": "middle"
+                }
+            },
+            "groups": {
+                "server": {
+                    "shape": "diamond",
+                    "color": {
+                        "background": "#FF9900",
+                        "border": "#FF6600"
+                    },
+                    "size": 25
+                },
+                "network": {
+                    "shape": "triangle",
+                    "color": {
+                        "background": "#00CC66",
+                        "border": "#009933"
+                    }
+                },
+                "client": {
+                    "shape": "dot",
+                    "color": {
+                        "background": "#6699FF",
+                        "border": "#3366FF"
+                    }
+                }
+            }
+        }
+    }
+
+# Function to get all available networks
+def available_networks():
+    return {
+        "Hierarchical Tree": hierarchical_tree_data,
+        "Mesh Network": mesh_network_data
+    }
+
+# For backwards compatibility
+def network_data():
+    return hierarchical_tree_data()
