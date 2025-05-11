@@ -163,7 +163,7 @@ timeline_component = VisTimelineComponent(
 # Add a title
 title = pn.pane.HTML("""
 <div class="w3-container w3-teal w3-padding">
-    <h1>Vis.js Timeline Component</h1>
+    <h1>Vis.js Timeline Demo</h1>
     <p>Click on timeline items to see details below</p>
 </div>
 """, sizing_mode="stretch_width")
