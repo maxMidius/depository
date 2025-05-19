@@ -44,26 +44,28 @@ slider = DiscreteSlider(value=37)
 slider.param.watch(slider_changed, 'value')
 rating.param.watch(rating_changed, 'value')
 
-# Create a demo layout
-app = pn.Row(
-    pn.Column(
-        pn.pane.Markdown("## Button Component (MUI)"),
-        button.controls(['disabled', 'label', 'variant']),
-        button
-    ),
-    pn.Column(
-        pn.pane.Markdown("## Rating Component"),
-        rating.controls(['value']), 
-        rating
-    ),
-    pn.Column(
-        pn.pane.Markdown("## Slider Component"),
-        slider.controls(['value']), 
-        slider
-    ),
-    pn.Column(
-        status_text
+def doLayout() :
+    # Create a demo layout
+    app = pn.Row(
+        pn.Column(
+            pn.pane.Markdown("## Button Component (MUI)"),
+            button.controls(['disabled', 'label', 'variant']),
+            button
+        ),
+        pn.Column(
+            pn.pane.Markdown("## Rating Component"),
+            rating.controls(['value']), 
+            rating
+        ),
+        pn.Column(
+            pn.pane.Markdown("## Slider Component"),
+            slider.controls(['value']), 
+            slider
+        ),
+        pn.Column(
+            status_text
+        )
     )
-)
+    return app
 
-app.servable(title="Material UI Components Demo")
+doLayout().servable(title="Button/Slider/Rating Demo")

@@ -7,7 +7,9 @@ class MaterialComponent(ReactComponent):
 
     _importmap = {
         "imports": {
-            "@mui/material/": "https://esm.sh/@mui/material@5.14.20/",  # Use a valid version
+            "@mui/material/": "https://esm.sh/@mui/material@5.14.20/",
+            "@emotion/react/": "https://esm.sh/@emotion/react@11.11.1/",
+            "@emotion/styled/": "https://esm.sh/@emotion/styled@11.11.0/"
         }
     }
 
@@ -119,6 +121,30 @@ class DiscreteSlider(MaterialComponent):
             step={null}
             valueLabelDisplay="auto"
           />
+        </Box>
+      );
+    }
+    """
+
+
+class Mui_Chip(MaterialComponent):
+    label = param.String(default="Test Chip")
+    color = param.Selector(objects=["primary", "secondary", "error", "warning", "info", "success", "default"], default="primary")
+    variant = param.Selector(objects=["contained", "outlined", "text", "filled"], default="contained")
+
+    _esm = """
+    import Chip from '@mui/material/Chip';
+    import Box from '@mui/material/Box';
+
+    export function render({ model }) {
+      const [label] = model.useState("label");
+      const [color] = model.useState("color");
+      const [variant] = model.useState("variant");
+
+      return (
+        <Box sx={{ padding: '16px', border: '1px dashed blue' }}>
+          <Chip label={label} color={color} variant="{variant}" />
+          <Chip label={`Outlined ${label}`} color={color} variant="outlined" />
         </Box>
       );
     }

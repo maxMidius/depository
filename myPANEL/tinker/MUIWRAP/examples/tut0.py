@@ -5,7 +5,7 @@ import os
 
 # Add the parent directory to the path so we can use absolute imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from shared.muiWrapLib import Rating, DiscreteSlider
+from shared.muiWrapLib import Rating, DiscreteSlider, Mui_Chip
 
 # Initialize Panel with material template
 pn.extension(template='material')
@@ -37,30 +37,37 @@ button.on_click(button_clicked)  # Use Panel's built-in click handling
 
 rating = Rating(value=3)
 slider = DiscreteSlider(value=37)
+muiChip = Mui_Chip(label="Hello", variant="outlined", color="primary")
 
 # Set up the value watchers
 slider.param.watch(slider_changed, 'value')
 rating.param.watch(rating_changed, 'value')  # Add watcher for rating changes
 
 # Create a demo layout
-app = pn.Row(
-    pn.Column(
-        pn.pane.Markdown("## Button Component"),
-        button
-    ),
-    pn.Column(
-        pn.pane.Markdown("## Rating Component"),
-        rating.controls(['value']), 
-        rating
-    ),
-    pn.Column(
-        pn.pane.Markdown("## Slider Component"),
-        slider.controls(['value']), 
-        slider
-    ),
-    pn.Column(
-        status_text
+def doLayout():
+    app = pn.Row(
+        pn.Column(
+            muiChip
+        ),
+        pn. Spacer(width=20),
+        pn.Column(
+            pn.pane.Markdown("## Button Component"),
+            button
+        ),
+        pn.Column(
+            pn.pane.Markdown("## Rating Component"),
+            rating.controls(['value']), 
+            rating
+        ),
+        pn.Column(
+            pn.pane.Markdown("## Slider Component"),
+            slider.controls(['value']), 
+            slider
+        ),
+        pn.Column(
+            status_text
+        )
     )
-)
+    return app
 
-app.servable(title="Material UI Components Demo")
+doLayout().servable(title="MUI Slider/Raing demo")
