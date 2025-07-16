@@ -77,6 +77,20 @@ ipch/
 *.psess
 *.vsp
 
+#From REFLEX
+**/.web
+**/*.db
+**/assets/external
+**/.states
+**/.py[cod]
+
+# MISC
+**/*.swp
+**/*.local.*
+**/__pycache__
+
+
+
 # ReSharper is a .NET coding add-in
 _ReSharper*
 
