@@ -1,0 +1,290 @@
+{
+  "rows": [
+    {
+      "Id": 1,
+      "Deliverable": "Frontend UI",
+      "Task": "<b>Build login page</b>",
+      "Effort": 8,
+      "Status": "In Progress",
+      "Due_date": "2026-01-15",
+      "People": [
+        "Alice"
+      ],
+      "Comments": "<p><a href=\"https://jira.example.com/FE-101\" rel=\"noopener noreferrer\" target=\"_blank\">FE\u2011101</a> to view tests</p>",
+      "Refer": "FE-101",
+      "expanded": true
+    },
+    {
+      "Id": 2,
+      "Deliverable": "Frontend UI",
+      "Task": "<i>Implement dashboard widgets</i>",
+      "Effort": 16,
+      "Status": "Not Started",
+      "Due_date": "2026-01-22",
+      "People": [
+        "Bob"
+      ],
+      "Comments": "",
+      "Refer": "FE-102",
+      "expanded": true
+    },
+    {
+      "Id": 3,
+      "Deliverable": "Frontend UI",
+      "Task": "Add <u>dark mode</u> support",
+      "Effort": 10,
+      "Status": "Not Started",
+      "Due_date": "2026-01-28",
+      "People": [
+        "Alice"
+      ],
+      "Comments": "",
+      "Refer": "FE-103",
+      "expanded": true
+    },
+    {
+      "Id": 4,
+      "Deliverable": "Frontend UI",
+      "Task": "Refactor <b>header navigation</b>",
+      "Effort": 12,
+      "Status": "In Progress",
+      "Due_date": "2026-02-01",
+      "People": [
+        "Bob"
+      ],
+      "Comments": "<a href=\"https://jira.example.com/FE-104\">FE\u2011104</a>",
+      "Refer": "FE-104",
+      "expanded": true
+    },
+    {
+      "Id": 5,
+      "Deliverable": "Frontend UI",
+      "Task": "<p>Improve <span style=\"color: rgb(255, 153, 0);\">mobile r</span>esponsiveness</p><p>for<span style=\"background-color: rgb(204, 224, 245);\"> </span><em style=\"background-color: rgb(204, 224, 245);\">every mode</em></p>",
+      "Effort": 14,
+      "Status": "Not Started",
+      "Due_date": "2026-02-05",
+      "People": [
+        "Eve"
+      ],
+      "Comments": "",
+      "Refer": "FE-105",
+      "expanded": true
+    },
+    {
+      "Id": 6,
+      "Deliverable": "Backend API",
+      "Task": "<b>Create auth endpoints</b>",
+      "Effort": 12,
+      "Status": "In Progress",
+      "Due_date": "2026-01-18",
+      "People": [
+        "Charlie"
+      ],
+      "Comments": "<a href=\"https://jira.example.com/BE-201\">BE\u2011201</a>",
+      "Refer": "BE-201",
+      "expanded": true
+    },
+    {
+      "Id": 7,
+      "Deliverable": "Backend API",
+      "Task": "Add rate limiting",
+      "Effort": 10,
+      "Status": "Not Started",
+      "Due_date": "2026-01-25",
+      "People": [
+        "Dana"
+      ],
+      "Comments": "",
+      "Refer": "BE-202",
+      "expanded": true
+    },
+    {
+      "Id": 8,
+      "Deliverable": "Backend API",
+      "Task": "Implement <i>audit logging</i>",
+      "Effort": 18,
+      "Status": "In Progress",
+      "Due_date": "2026-02-02",
+      "People": [
+        "Charlie"
+      ],
+      "Comments": "",
+      "Refer": "BE-203",
+      "expanded": true
+    },
+    {
+      "Id": 9,
+      "Deliverable": "Backend API",
+      "Task": "Optimize DB queries",
+      "Effort": 20,
+      "Status": "Not Started",
+      "Due_date": "2026-02-10",
+      "People": [
+        "Dana"
+      ],
+      "Comments": "<a href=\"https://jira.example.com/BE-204\">BE\u2011204</a>",
+      "Refer": "BE-204",
+      "expanded": true
+    },
+    {
+      "Id": 10,
+      "Deliverable": "Backend API",
+      "Task": "Add <b>API versioning</b>",
+      "Effort": 15,
+      "Status": "Not Started",
+      "Due_date": "2026-02-12",
+      "People": [
+        "Charlie"
+      ],
+      "Comments": "",
+      "Refer": "BE-205",
+      "expanded": true
+    },
+    {
+      "Id": 11,
+      "Deliverable": "Deployment Pipeline",
+      "Task": "<u>Set up CI/CD</u>",
+      "Effort": 20,
+      "Status": "In Progress",
+      "Due_date": "2026-02-01",
+      "People": [
+        "Eve"
+      ],
+      "Comments": "",
+      "Refer": "DP-301",
+      "expanded": true
+    },
+    {
+      "Id": 12,
+      "Deliverable": "Deployment Pipeline",
+      "Task": "Add staging environment",
+      "Effort": 14,
+      "Status": "Not Started",
+      "Due_date": "2026-02-05",
+      "People": [
+        "Frank"
+      ],
+      "Comments": "",
+      "Refer": "DP-302",
+      "expanded": true
+    },
+    {
+      "Id": 13,
+      "Deliverable": "Deployment Pipeline",
+      "Task": "Automate rollback scripts",
+      "Effort": 10,
+      "Status": "Not Started",
+      "Due_date": "2026-02-08",
+      "People": [
+        "Eve"
+      ],
+      "Comments": "",
+      "Refer": "DP-303",
+      "expanded": true
+    },
+    {
+      "Id": 14,
+      "Deliverable": "Deployment Pipeline",
+      "Task": "Add <b>artifact signing</b>",
+      "Effort": 12,
+      "Status": "In Progress",
+      "Due_date": "2026-02-15",
+      "People": [
+        "Frank"
+      ],
+      "Comments": "",
+      "Refer": "DP-304",
+      "expanded": true
+    },
+    {
+      "Id": 15,
+      "Deliverable": "Deployment Pipeline",
+      "Task": "Improve build caching",
+      "Effort": 16,
+      "Status": "Not Started",
+      "Due_date": "2026-02-20",
+      "People": [
+        "Eve"
+      ],
+      "Comments": "",
+      "Refer": "DP-305",
+      "expanded": true
+    },
+    {
+      "Id": 16,
+      "Deliverable": "Analytics Engine",
+      "Task": "<b>Design data model</b>",
+      "Effort": 22,
+      "Status": "In Progress",
+      "Due_date": "2026-02-10",
+      "People": [
+        "Grace"
+      ],
+      "Comments": "<a href=\"https://jira.example.com/AN-401\">AN\u2011401</a>",
+      "Refer": "AN-401",
+      "expanded": true
+    },
+    {
+      "Id": 17,
+      "Deliverable": "Analytics Engine",
+      "Task": "Implement ETL pipeline",
+      "Effort": 30,
+      "Status": "Not Started",
+      "Due_date": "2026-02-25",
+      "People": [
+        "Henry"
+      ],
+      "Comments": "",
+      "Refer": "AN-402",
+      "expanded": true
+    },
+    {
+      "Id": 18,
+      "Deliverable": "Analytics Engine",
+      "Task": "Add <i>real\u2011time metrics</i>",
+      "Effort": 18,
+      "Status": "Not Started",
+      "Due_date": "2026-03-01",
+      "People": [
+        "Grace"
+      ],
+      "Comments": "",
+      "Refer": "AN-403",
+      "expanded": true
+    },
+    {
+      "Id": 19,
+      "Deliverable": "Analytics Engine",
+      "Task": "Integrate with dashboard",
+      "Effort": 14,
+      "Status": "Not Started",
+      "Due_date": "2026-03-05",
+      "People": [
+        "Henry"
+      ],
+      "Comments": "",
+      "Refer": "AN-404",
+      "expanded": true
+    },
+    {
+      "Id": 20,
+      "Deliverable": "Analytics Engine",
+      "Task": "Optimize aggregation jobs",
+      "Effort": 20,
+      "Status": "Not Started",
+      "Due_date": "2026-03-10",
+      "People": [
+        "Grace"
+      ],
+      "Comments": "",
+      "Refer": "AN-405",
+      "expanded": true
+    }
+  ],
+  "expanded_deliverables": [
+    "Deployment Pipeline",
+    "Backend API",
+    "Frontend UI",
+    "Analytics Engine"
+  ]
+}
