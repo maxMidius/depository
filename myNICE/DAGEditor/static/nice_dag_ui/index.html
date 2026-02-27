@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DAG Editor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="toolbar">
+          <div class="field">
+            <label>Node Label</label>
+            <input id="nodeLabel" type="text" placeholder="e.g., Process" />
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select id="nodeType">
+              <option value="normal" selected>normal</option>
+              <option value="start">start</option>
+              <option value="end">end</option>
+              <option value="decision">decision</option>
+            </select>
+          </div>
+          <button id="addNode" class="btn primary">Add Node</button>
+          <button id="toggleConnect" class="btn">Connect</button>
+          <button id="deleteNode" class="btn danger">Delete</button>
+          <button id="deleteEdge" class="btn danger">Delete Edge</button>
+          <div class="field">
+            <label>Group Name</label>
+            <input id="groupName" type="text" placeholder="Deliverable A" />
+          </div>
+          <button id="createGroup" class="btn">Group Selected</button>
+          <button id="ungroup" class="btn">Ungroup</button>
+          <div class="toolbar-break"></div>
+          <div class="dag-controls">
+            <label class="inline-label">DAG Name:</label>
+            <input id="dagName" type="text" placeholder="my_dag" class="inline-input" />
+            <button id="saveDag" class="btn">Save</button>
+            <div class="spacing"></div>
+            <select id="dagList" class="select"></select>
+            <button id="loadDag" class="btn">Load</button>
+            <button id="newDag" class="btn">New</button>
+          </div>
+        </div>
+      </header>
+      <main class="layout">
+        <section id="canvas-container">
+          <svg id="canvas" aria-label="DAG Canvas"></svg>
+        </section>
+      </main>
+      <!-- Hidden elements for data storage (updated by app.js, read by parent) -->
+      <div style="display: none;">
+        <pre id="nodeList">(none)</pre>
+        <pre id="edgeList">(none)</pre>
+        <pre id="groupList">(none)</pre>
+      </div>
+      <footer class="status" id="status">Ready</footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

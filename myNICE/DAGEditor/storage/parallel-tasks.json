@@ -1,0 +1,102 @@
+{
+  "name": "parallel-tasks",
+  "description": "",
+  "data": {
+    "nodes": [
+      {
+        "id": "start",
+        "label": "Start",
+        "type": "start",
+        "x": 150,
+        "y": 50,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "task1",
+        "label": "Task 1",
+        "type": "normal",
+        "x": -4,
+        "y": 206,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "task2",
+        "label": "Task 2",
+        "type": "normal",
+        "x": 154,
+        "y": 159,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "task3",
+        "label": "Task 3",
+        "type": "normal",
+        "x": 379,
+        "y": 150,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "merge",
+        "label": "Merge Results",
+        "type": "normal",
+        "x": 150,
+        "y": 250,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "end",
+        "label": "End",
+        "type": "end",
+        "x": 150,
+        "y": 350,
+        "width": 130,
+        "height": 46
+      }
+    ],
+    "edges": [
+      {
+        "source": "start",
+        "target": "task1",
+        "id": "e1"
+      },
+      {
+        "source": "start",
+        "target": "task2",
+        "id": "e2"
+      },
+      {
+        "source": "start",
+        "target": "task3",
+        "id": "e3"
+      },
+      {
+        "source": "task1",
+        "target": "merge",
+        "id": "e4"
+      },
+      {
+        "source": "task2",
+        "target": "merge",
+        "id": "e5"
+      },
+      {
+        "source": "task3",
+        "target": "merge",
+        "id": "e6"
+      },
+      {
+        "source": "merge",
+        "target": "end",
+        "id": "e7"
+      }
+    ],
+    "groups": []
+  },
+  "created": "2026-02-26T20:57:05.173194",
+  "updated": "2026-02-26T20:57:05.173208"
+}

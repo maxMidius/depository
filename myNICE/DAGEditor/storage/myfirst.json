@@ -1,0 +1,39 @@
+{
+  "name": "myfirst",
+  "description": "",
+  "data": {
+    "nodes": [
+      {
+        "id": "n1",
+        "label": "Node 1",
+        "type": "normal",
+        "x": 80,
+        "y": 80,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "n2",
+        "label": "Node 2",
+        "type": "normal",
+        "x": 230,
+        "y": 80,
+        "width": 130,
+        "height": 46
+      },
+      {
+        "id": "n3",
+        "label": "Node 3",
+        "type": "normal",
+        "x": 380,
+        "y": 80,
+        "width": 130,
+        "height": 46
+      }
+    ],
+    "edges": [],
+    "groups": []
+  },
+  "created": "2026-02-27T06:18:03.235897",
+  "updated": "2026-02-27T06:18:03.235909"
+}

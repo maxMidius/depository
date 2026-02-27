@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "label": "Start",
+      "type": "start"
+    },
+    {
+      "id": "process1",
+      "label": "Process 1",
+      "type": "normal"
+    },
+    {
+      "id": "process2",
+      "label": "Process 2",
+      "type": "normal"
+    },
+    {
+      "id": "end",
+      "label": "End",
+      "type": "end"
+    }
+  ],
+  "edges": [
+    {
+      "source": "start",
+      "target": "process1"
+    },
+    {
+      "source": "process1",
+      "target": "process2"
+    },
+    {
+      "source": "process2",
+      "target": "end"
+    }
+  ]
+}

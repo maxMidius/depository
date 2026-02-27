@@ -1,0 +1,67 @@
+{
+  "name": "simple-pipeline",
+  "description": "Simple ETL pipeline",
+  "data": {
+    "nodes": [
+      {
+        "id": "start",
+        "label": "Start",
+        "type": "start",
+        "x": 100,
+        "y": 50
+      },
+      {
+        "id": "extract",
+        "label": "Extract Data",
+        "type": "normal",
+        "x": 100,
+        "y": 150
+      },
+      {
+        "id": "transform",
+        "label": "Transform",
+        "type": "normal",
+        "x": 100,
+        "y": 250
+      },
+      {
+        "id": "load",
+        "label": "Load",
+        "type": "normal",
+        "x": 100,
+        "y": 350
+      },
+      {
+        "id": "end",
+        "label": "End",
+        "type": "end",
+        "x": 100,
+        "y": 450
+      }
+    ],
+    "edges": [
+      {
+        "source": "start",
+        "target": "extract",
+        "id": "e1"
+      },
+      {
+        "source": "extract",
+        "target": "transform",
+        "id": "e2"
+      },
+      {
+        "source": "transform",
+        "target": "load",
+        "id": "e3"
+      },
+      {
+        "source": "load",
+        "target": "end",
+        "id": "e4"
+      }
+    ]
+  },
+  "created": "2026-02-26T13:51:27.844421",
+  "updated": "2026-02-26T13:51:27.844470"
+}
