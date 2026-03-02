@@ -1,0 +1,11 @@
+packages:
+  - packages/nice-dag**/**
+  - example/react
+  - example/vue
+
+onlyBuiltDependencies:
+  - core-js
+  - core-js-pure
+  - esbuild
+  - vue-demi
+  - yorkie
