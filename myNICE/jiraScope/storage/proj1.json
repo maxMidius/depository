@@ -1,0 +1,146 @@
+{
+  "name": "Proj1",
+  "description": "",
+  "capabilities": [
+    {
+      "id": "cap1",
+      "name": "User Management",
+      "x": 50,
+      "y": 50,
+      "width": 400,
+      "height": 300,
+      "deliverables": [
+        {
+          "id": "del1",
+          "name": "Authentication",
+          "x": 60,
+          "y": 90,
+          "width": 180,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task1",
+              "name": "Login Form",
+              "x": 80,
+              "y": 130
+            },
+            {
+              "id": "task2",
+              "name": "Token Validation",
+              "x": 80,
+              "y": 200
+            }
+          ]
+        },
+        {
+          "id": "del2",
+          "name": "User Profile",
+          "x": 260,
+          "y": 90,
+          "width": 180,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task3",
+              "name": "Edit Profile",
+              "x": 280,
+              "y": 130
+            },
+            {
+              "id": "task4",
+              "name": "Avatar Upload",
+              "x": 280,
+              "y": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap2",
+      "name": "Data Analytics",
+      "x": 500,
+      "y": 50,
+      "width": 350,
+      "height": 300,
+      "deliverables": [
+        {
+          "id": "del3",
+          "name": "Dashboard",
+          "x": 520,
+          "y": 90,
+          "width": 310,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task5",
+              "name": "Charts",
+              "x": 540,
+              "y": 130
+            },
+            {
+              "id": "task6",
+              "name": "Data Export",
+              "x": 540,
+              "y": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap3",
+      "name": "New Capability",
+      "x": 368,
+      "y": 431,
+      "width": 400,
+      "height": 300,
+      "deliverables": [
+        {
+          "id": "del4",
+          "name": "New Deliverable",
+          "x": 388,
+          "y": 471,
+          "width": 241,
+          "height": 177,
+          "tasks": [
+            {
+              "id": "task7",
+              "name": "New Task",
+              "x": 408,
+              "y": 511
+            },
+            {
+              "id": "task8",
+              "name": "New Task",
+              "x": 462,
+              "y": 587
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "task2",
+      "to": "task3"
+    },
+    {
+      "from": "task1",
+      "to": "task2"
+    },
+    {
+      "from": "task6",
+      "to": "task7"
+    },
+    {
+      "from": "task4",
+      "to": "task5"
+    },
+    {
+      "from": "task7",
+      "to": "task8"
+    }
+  ]
+}

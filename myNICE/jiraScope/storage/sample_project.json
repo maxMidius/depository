@@ -1,0 +1,102 @@
+{
+  "name": "Sample Project",
+  "description": "Sample project with capabilities, deliverables, and tasks",
+  "capabilities": [
+    {
+      "id": "cap1",
+      "name": "User Management",
+      "x": 50,
+      "y": 50,
+      "width": 400,
+      "height": 300,
+      "deliverables": [
+        {
+          "id": "del1",
+          "name": "Authentication",
+          "x": 60,
+          "y": 90,
+          "width": 180,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task1",
+              "name": "Login Form",
+              "x": 80,
+              "y": 130
+            },
+            {
+              "id": "task2",
+              "name": "Token Validation",
+              "x": 80,
+              "y": 200
+            }
+          ]
+        },
+        {
+          "id": "del2",
+          "name": "User Profile",
+          "x": 260,
+          "y": 90,
+          "width": 180,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task3",
+              "name": "Edit Profile",
+              "x": 280,
+              "y": 130
+            },
+            {
+              "id": "task4",
+              "name": "Avatar Upload",
+              "x": 280,
+              "y": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cap2",
+      "name": "Data Analytics",
+      "x": 500,
+      "y": 50,
+      "width": 350,
+      "height": 300,
+      "deliverables": [
+        {
+          "id": "del3",
+          "name": "Dashboard",
+          "x": 520,
+          "y": 90,
+          "width": 310,
+          "height": 200,
+          "tasks": [
+            {
+              "id": "task5",
+              "name": "Charts",
+              "x": 540,
+              "y": 130
+            },
+            {
+              "id": "task6",
+              "name": "Data Export",
+              "x": 540,
+              "y": 200
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "task2",
+      "to": "task3"
+    },
+    {
+      "from": "task1",
+      "to": "task2"
+    }
+  ]
+}
