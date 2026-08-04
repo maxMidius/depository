@@ -1,0 +1,40 @@
+#leaflet-demo-map {
+  height: 100%;
+  width: 100%;
+  min-height: 520px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+#leaflet-demo-map-wrapper {
+  height: 520px;
+  width: 100%;
+  min-height: 520px;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.marker-table-wrapper {
+  margin-top: 12px;
+}
+
+#marker-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+#marker-table th,
+#marker-table td {
+  border: 1px solid #d1d5db;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+#marker-table tr.selected td {
+  background: #fef2f2;
+  font-weight: 600;
+}

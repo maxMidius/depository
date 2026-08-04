@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alkaapps"
+version = "0.1.0"
+description = "NiceGUI apps"
+requires-python = ">=3.12"
+
+# Your Python dependencies
+dependencies = [
+    "nicegui>=3.4.1",
+    "aiohttp",
+    "jinja2",
+    # add more here
+]
+
+# Entry points to launch apps
+[project.scripts]
+leaflet_go= "helloLeaflet:main"
+leaflet_demo = "apps.DEMOS.leaflet_main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["apps*", "static*"]
+
+[tool.setuptools.package-data]
+"static" = ["leaflet/*.css", "leaflet/*.js"]
+
