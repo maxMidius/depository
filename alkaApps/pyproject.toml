@@ -13,6 +13,7 @@ dependencies = [
     "nicegui>=3.4.1",
     "aiohttp",
     "jinja2",
+    "pyYAML"
     # add more here
 ]
 

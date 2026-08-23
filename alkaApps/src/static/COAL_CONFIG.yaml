@@ -1,0 +1,316 @@
+# This is a COALESCE network configuration file. 
+# It is used to define the network topology and parameters for the COALESCE system. 
+# The file is in YAML format and can be edited to change the network configuration.
+#updating to work with RU info in the DUlist (like Andro)
+
+format_version: 0.4
+
+RANs:
+  - name: big4s8
+    desc: "4 5G macrocells at CBD with 8 sectors --asymmetric gNB"
+    operator: NRL-CBD
+    nokiaAuth:
+      # set host correctly here; maybe "localhost" or "santo" or "aws-coalesce" or IP addr
+      # apiUrl: "https://aws-coalesce:3000/nokia/testbed/iadss/v1"
+      # authUrl: "https://aws-coalesce:3001/nokia/testbed/iadss/v1"
+      apiUrl: "https://santo:3000/nokia/testbed/iadss/v1"
+      authUrl: "https://santo:3001/nokia/testbed/iadss/v1"
+      clientId: "12345"
+      clientSecret: "AbcD"
+      username: "test"
+      certFile: "../certs/client/xfem/xfitt_lh.crt"
+      keyFile: "../certs/client/xfem/xfitt_lh.key"
+      serverCertFile: null
+    gnbList: [
+          {
+            gnbId: 411,
+            name: Nokia1,
+            desc: "Nokia 5G macrocell at Tilghman Tower",
+            type: largeNokia,
+            cuId: 411,
+            duList: [
+              {
+                duId: 0,
+                ruList: [
+                  {
+                    ruId: 0,
+                    loc: {lat: 38.6784, lon: -76.3437},
+                    antHeight: 21.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 270.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0, #artificial value, 53 is 200W
+                    bandwidthHz: 100.0e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ]             
+              },
+              {
+                duId: 1,
+                ruList: [
+                  {
+                    ruId: 1,
+                    loc: {lat: 38.6784, lon: -76.3437},
+                    antHeight: 21.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 30.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0, #artificial value, 53 is 200W
+                    bandwidthHz: 100.0e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ]
+              },  
+              {
+                duId: 2,
+                ruList: [
+                {
+                  ruId: 2,
+                  loc: {lat: 38.6784, lon: -76.3437},
+                  antHeight: 21.0,
+                  antHeightType: AGL, # keyword: AGL or AMSL
+                  nBeams: 8,
+                  antAzimuth: 150.0,
+                  antDowntilt: 0.0,
+                  outputPowerdBm: 55.0,
+                  bandwidthHz: 100e+6,
+                  centerFrequencyHz: 3.34998e+9,
+                  scsHz: 30000,
+                  numberOfPrbs: 273,
+                  antType: NokiaSSB
+                }
+              ] #end RU list
+              } #end DU
+            ]  #end DU list   
+          }, #close this gNB
+          {
+            gnbId: 412,
+            name: Nokia1,
+            desc: "Nokia 5G macrocell at Tilghman WWTP",
+            type: largeNokia,
+            cuId: 412,
+            duList: [
+              {
+                duId: 3,
+                ruList: [
+                  {
+                    ruId: 3,
+                    loc: {lat: 38.71523,  lon: -76.33941},
+                    antHeight: 12.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 270.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0,
+                    bandwidthHz: 100.0e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end ru
+              },
+              {
+                duId: 4,
+                ruList:[
+                  {
+                    ruId: 4,
+                    loc: {lat: 38.71523,  lon: -76.33941},
+                    antHeight: 12,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 30.0,
+                    antDowntilt: 0,
+                    nBeams: 8,
+                    outputPowerdBm: -50.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                  ] #end Rulist  
+              },
+              {  
+                duId: 5,
+                ruList: [  
+                    {
+                    ruId: 5,
+                    loc: {lat: 38.71523,  lon: -76.33941},
+                    antHeight: 12.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    nBeams: 8,
+                    antAzimuth: 150.0,
+                    antDowntilt: 0.0,
+                    outputPowerdBm: 55.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end RU list
+              }
+            ] #end DU list
+          },    #next gNB    
+          {
+            gnbId: 413,
+            name: Nokia1,
+            desc: "Nokia 5G macrocell at NOAA Oxford",
+            type: largeNokia,
+            cuId: 413,
+            duList: [
+              {
+                duId: 6,
+                ruList: [
+                  {
+                    ruId: 6,
+                    loc: {lat: 38.677701, lon: -76.170358},
+                    antHeight: 12.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 270.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0,
+                    bandwidthHz: 100.0e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ]
+              },
+              {
+                duId: 7,
+                ruList: [    
+                  {
+                    ruId: 7,
+                    loc: {lat: 38.677701, lon: -76.170358},
+                    antHeight: 12.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 30.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: -50.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end RUlist
+              },
+              {
+                duId: 8,
+                ruList:[    
+                  {
+                    ruId: 8,
+                    loc: {lat: 38.677701, lon: -76.170358},
+                    antHeight: 12.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    nBeams: 8,
+                    antAzimuth: 150.0,
+                    antDowntilt: 0.0,
+                    outputPowerdBm: -50.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end RU list
+              }
+            ]  #end DU list
+          },
+          {
+            gnbId: 414,
+            name: Nokia1,
+            desc: "Nokia 5G macrocell at Patriot Point",
+            type: largeNokia,
+            cuId: 414,
+            duList: [
+              {
+                duId: 9,
+                ruList: [
+                  {
+                    ruId: 9,
+                    loc: {lat: 38.48562,  lon: -76.275640},
+                    antHeight: 25.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 270.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0,
+                    bandwidthHz: 100.0e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end RUlist
+              },
+              {
+                duId: 10,
+                ruList: [
+                  {
+                    ruId: 10,
+                    loc: {lat: 38.48562,  lon: -76.275640},
+                    antHeight: 25.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    antAzimuth: 330.0,
+                    antDowntilt: 0.0,
+                    nBeams: 8,
+                    outputPowerdBm: 55.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ]
+              },
+              {
+                duId: 11,
+                ruList: [    
+                  {
+                    ruId: 11,
+                    loc: {lat: 38.48562,  lon: -76.275640},
+                    antHeight: 25.0,
+                    antHeightType: AGL, # keyword: AGL or AMSL
+                    nBeams: 8,
+                    antAzimuth: 90.0,
+                    antDowntilt: 0.0,
+                    outputPowerdBm: -50.0,
+                    bandwidthHz: 100e+6,
+                    centerFrequencyHz: 3.34998e+9,
+                    scsHz: 30000,
+                    numberOfPrbs: 273,
+                    antType: NokiaSSB
+                  }
+                ] #end RU list
+              }  
+            ] #end DU list
+          }  
+        ] #end gNB list
+
+clutter: !inc clutter-default.yaml
+
+flexDAR: !inc flexdar-cbd.yaml
+
+obfuscation: !inc obfuscation.yaml
+
+# provisional/currently in discussion as a new design
+# NOT observed by the system yet
+# DTDF: !inc dtdf-default.yaml
+
+asc_params:
+  INR_thres: -6.0
+  DF_name: gresa # or mesca
+  senseGuardBandMHz: 1.0
